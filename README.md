@@ -30,5 +30,5 @@ The app includes search by title/year/genre, movie details, favorites management
 
 1. **Clone the repo**
    ```bash
-   git clone https://github.com/your-username/tmdb-movies-app.git
-   cd tmdb-movies-app
+   git clone https://github.com/Ayan-thecodeking/movie-library.git
+   cd movie-library
