@@ -109,6 +109,8 @@ const goNext = () => store.nextPage()
 const goPage = (p) => store.goToPage(p)
 
 onMounted(async () => {
+    store.initFavorites()
+
   await Promise.all([
     store.fetchGenres(),
     store.fetchNowPlaying({ page: 1, language: 'en-US' }),

@@ -15,7 +15,7 @@ export const useMoviesStore = defineStore('movies', {
     lastQuery: '',
     genres: [],                 // <— for dropdown
     movieDetails: null,         // <— details page
-    favorites: [],              // <— persisted ids
+    favorites: [],              
 
     lastMode: 'now_playing',     // 'now_playing' | 'search'
     lastFilters: { title: '', year: '', genreId: '' }, // for search pagination
@@ -27,15 +27,40 @@ export const useMoviesStore = defineStore('movies', {
   },
 
   actions: {
+
+    // _loadFavorites() {
+    //   try {
+    //     const raw = localStorage.getItem(FAVORITES_KEY)
+    //     this.favorites = raw ? JSON.parse(raw) : []
+    //   } catch { this.favorites = [] }
+    // },
+    // _saveFavorites() {
+    //   localStorage.setItem(FAVORITES_KEY, JSON.stringify(this.favorites))
+    // },
+    // toggleFavorite(id) {
+    //   const idx = this.favorites.indexOf(id)
+    //   if (idx === -1) this.favorites.push(id)
+    //   else this.favorites.splice(idx, 1)
+    //   this._saveFavorites()
+    // },
+
+    initFavorites() {
+      this._loadFavorites()
+    },
+    
     _loadFavorites() {
       try {
         const raw = localStorage.getItem(FAVORITES_KEY)
         this.favorites = raw ? JSON.parse(raw) : []
-      } catch { this.favorites = [] }
+      } catch {
+        this.favorites = []
+      }
     },
+
     _saveFavorites() {
       localStorage.setItem(FAVORITES_KEY, JSON.stringify(this.favorites))
     },
+
     toggleFavorite(id) {
       const idx = this.favorites.indexOf(id)
       if (idx === -1) this.favorites.push(id)

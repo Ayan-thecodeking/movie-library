@@ -3,11 +3,17 @@
     <div class="movie-img">
       <NuxtLink :to="`/movie/${movie.id}`" class="img-link">
         <img :src="posterUrl" :alt="movie.title" />
-        <p class="review">{{ movie.vote_average?.toFixed?.(1) ?? movie.vote_average ?? '—' }}</p>
-        <p class="overview">{{ movie.overview || 'No overview available.' }}</p>
+        <p class="review">
+          {{ movie.vote_average?.toFixed?.(1) ?? movie.vote_average ?? "—" }}
+        </p>
+        <p class="overview">{{ movie.overview || "No overview available." }}</p>
       </NuxtLink>
-      <button class="fav-btn" :aria-pressed="isFavorite"
-        :title="isFavorite ? 'Remove from favorites' : 'Add to favorites'" @click.stop="$emit('toggle-fav')">
+      <button
+        class="fav-btn"
+        :aria-pressed="isFavorite"
+        :title="isFavorite ? 'Remove from favorites' : 'Add to favorites'"
+        @click.stop="$emit('toggle-fav')"
+      >
         <span v-if="isFavorite">♥</span>
         <span v-else>♡</span>
       </button>
@@ -15,7 +21,8 @@
 
     <div class="info">
       <p class="title">
-        {{ movie.title?.slice(0, 30) }}<span v-if="movie.title?.length > 30">…</span>
+        {{ movie.title?.slice(0, 30)
+        }}<span v-if="movie.title?.length > 30">…</span>
       </p>
       <p class="release">
         Released:
@@ -29,22 +36,28 @@
 </template>
 
 <script setup>
-import noImg from '../../assets/no_img.png'
+import noImg from "../../assets/no_img.png";
 const props = defineProps({
   movie: { type: Object, required: true },
   isFavorite: { type: Boolean, default: false },
-})
+});
 const posterUrl = computed(() =>
   props.movie.poster_path
     ? `https://image.tmdb.org/t/p/w500/${props.movie.poster_path}`
     : noImg
-)
+);
 const releaseText = computed(() => {
-  const d = props.movie.release_date ? new Date(props.movie.release_date) : null
+  const d = props.movie.release_date
+    ? new Date(props.movie.release_date)
+    : null;
   return d
-    ? d.toLocaleString('en-us', { month: 'long', day: 'numeric', year: 'numeric' })
-    : '—'
-})
+    ? d.toLocaleString("en-us", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      })
+    : "—";
+});
 </script>
 
 <style scoped lang="scss">
@@ -95,7 +108,7 @@ const releaseText = computed(() => {
     padding: 12px;
     color: #fff;
     transform: translateY(100%);
-    transition: transform .25s ease-in-out;
+    transition: transform 0.25s ease-in-out;
     max-height: 70%;
     overflow: auto;
   }
